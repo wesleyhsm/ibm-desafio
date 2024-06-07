@@ -1,7 +1,9 @@
 package br.com.wesley.ibm.service;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -103,5 +105,13 @@ public class TransacaoService {
 			log.error("Erro transação inválida");
 			throw new NegocioException(e.getMessage());			
 		}
+	}
+	
+	public List<TipoTransacao> buscarTipoTransaoes() {
+		return Arrays.asList(TipoTransacao.values());
+	}
+	
+	public List<Transacao> buscarTodasTransacoesDaConta(final Integer numeroConta) {
+		return transacaoRepository.buscarTodasTransacoesDaConta(numeroConta);
 	}
 }

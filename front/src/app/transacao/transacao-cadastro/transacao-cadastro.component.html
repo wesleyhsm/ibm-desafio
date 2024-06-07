@@ -1,0 +1,36 @@
+<div class="container">
+  <form #transacaoForm="ngForm" autocomplete="off" (ngSubmit)="salvar(transacaoForm)">
+
+    <div class="grid">
+      <div class="col-12">
+        <h1>Nova Transação</h1>
+      </div>
+
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Número da Conta</label>
+        <p-inputMask name="numeroConta" mask="99999" [(ngModel)]="transacao.numeroConta" #numeroConta="ngModel" [required]="true"></p-inputMask>
+
+        <app-message [control]="numeroConta.control" error="required" text="Informe o número da conta"></app-message>
+      </div>
+            
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Tipo</label>
+        <p-dropdown [options]="transassoes" [(ngModel)]="transacao.tipo" name="tipo" #tipo="ngModel" placeholder="Selecione" [showClear]="true"></p-dropdown>
+
+        <app-message [control]="tipo.control" error="required" text="Selecione o tipo da transação"></app-message>
+      </div>
+
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Valor</label>
+        <p-inputNumber name="valor" #valor="ngModel" [(ngModel)]="transacao.valor" inputId="locale-us" mode="decimal" locale="pt-br" [required]="true" [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
+        
+        <app-message [control]="valor.control" error="required" text="Informe o valor da transação"></app-message>
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit" label="Salvar" [disabled]="transacaoForm.invalid"></button>        
+      </div>
+    </div>
+
+  </form>
+</div>

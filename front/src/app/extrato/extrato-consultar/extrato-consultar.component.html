@@ -1,0 +1,67 @@
+<div class="container">
+  <form #transacaoForm="ngForm" autocomplete="off" (ngSubmit)="buscarTransacoesPorConta(transacaoForm)">
+
+    <div class="grid">
+      <div class="col-12">
+        <h1>Extrato da Conta</h1>
+      </div>
+
+      <div class="col-12 md:col-4 p-fluid">
+        <label>Número da Conta</label>
+        <p-inputMask name="numeroConta" mask="99999" [(ngModel)]="transacao.numeroConta" #numeroConta="ngModel" [required]="true"></p-inputMask>
+
+        <app-message [control]="numeroConta.control" error="required" text="Informe o número da conta"></app-message>
+      </div>
+           
+      <div class="col-12">
+        <button pButton type="submit" label="Buscar" [disabled]="transacaoForm.invalid"></button>        
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="col-12">
+        <h1>Informações do cliente</h1>
+      </div>
+
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Nome</label>
+        <input pInputText disabled="true" type="text" name="nome" [(ngModel)]="cliente.nome" minlength="5" maxlength="50">
+      </div>
+            
+      <div class="col-12 md:col-6 p-fluid">
+        <label>E-mail</label>
+        <input pInputText disabled="true" type="email" [email]="true" name="email" [(ngModel)]="cliente.email">
+      </div>
+
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Saldo da Conta</label>
+        <p-inputNumber [disabled]="true" name="valor" [(ngModel)]="conta.saldo" inputId="locale-us" mode="decimal" locale="pt-br"  [minFractionDigits]="2" [maxFractionDigits]="2"></p-inputNumber>
+      </div>
+
+      <div class="col-12 md:col-6 p-fluid">
+        <label>Data Última Transação</label>
+        <input pInputText disabled="true" type="data"  name="data" [(ngModel)]="dataFormatada">        
+      </div>
+
+      <div class="col-12 p-fluid">
+        <p-table [value]="transacoes" >
+          <ng-template pTemplate="header">
+              <tr>
+                  <th>Tipo</th>
+                  <th>Valor</th>
+                  <th>Data</th>                  
+              </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-transacao>
+              <tr>
+                  <td>{{transacao.tipo}}</td>
+                  <td>{{transacao.valor | currency: 'BRL' }}</td>
+                  <td>{{transacao.data | date: 'dd/MM/yyyy HH:mm:ss'}}</td>                  
+              </tr>
+          </ng-template>
+      </p-table>
+      </div>
+    </div>
+
+  </form>
+</div>
